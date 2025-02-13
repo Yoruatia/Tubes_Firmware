@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-PIDController::PIDController(float Kp, float Ki, float Kd, float setpoint)
+PIDController::PIDController(double Kp, double Ki, double Kd, double setpoint)
 {
     this -> Kp = Kp;
     this -> Ki = Ki;
@@ -15,43 +15,43 @@ PIDController::PIDController(float Kp, float Ki, float Kd, float setpoint)
     this -> lastError = 0;
 }
 
-float PIDController::get_Kp() {return Kp;}
-float PIDController::get_Ki() {return Ki;}
-float PIDController::get_Kd() {return Kd;}
+double PIDController::get_Kp() {return Kp;}
+double PIDController::get_Ki() {return Ki;}
+double PIDController::get_Kd() {return Kd;}
 
-void PIDController::set_tunings(float newKp, float newKi, float newKd)
+void PIDController::set_tunings(double newKp, double newKi, double newKd)
 {
     Kp = newKp;
     Ki = newKi;
     Kd = newKd;
 }
 
-void PIDController::set_setpoint(float new_setpoint)
+void PIDController::set_setpoint(double new_setpoint)
 {
     setpoint = new_setpoint;
 }
 
-float PIDController::compute(float input, float dt)
+double PIDController::compute(double input, double dt)
 {
-    float error = setpoint - input;
+    double error = setpoint - input;
     integral += error * dt;
-    float derivative = (error - prevError) / dt;
+    double derivative = (error - prevError) / dt;
     prevError = error;
 
-    float output = (Kp * error) + (Ki * integral) + (Kd * derivative);
+    double output = (Kp * error) + (Ki * integral) + (Kd * derivative);
     selfTune(error);
 
-    return output;
+    double output;
 }
 
-void PIDController::set_PID(float kp, float ki, float kd)
+void PIDController::set_PID(double kp, double ki, double kd)
 {
     Kp = kp;
     Ki = ki;
     Kd = kd;
 }
 
-void PIDController::selfTune(float error)
+void PIDController::selfTune(double error)
 {
     // Jika error kecil tidak perlu tuning
     if (fabs(error) < 0.5)
