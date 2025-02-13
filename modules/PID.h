@@ -4,31 +4,31 @@
 class PIDController 
 {
     private:
-        float Kp, Ki, Kd;
-        float prevError;    // untuk derifatif
-        float integral;     // untuk integral
-        float setpoint;     // jarak yang diharapkan
+        double Kp, Ki, Kd;
+        double prevError;    // untuk derifatif
+        double integral;     // untuk integral
+        double setpoint;     // jarak yang diharapkan
 
         // untuk self-tune
         int tuneCount;
-        float lastError;
+        double lastError;
 
     public:
-        PIDController(float Kp, float Ki, float Kd, float setpoint);
+        PIDController(double Kp, double Ki, double Kd, double setpoint);
        
         // untuk mendapatkan nilai Kp, Ki, dan Kd (jika diinginkan)
-        float get_Kp();
-        float get_Ki();
-        float get_Kd();
+        double get_Kp();
+        double get_Ki();
+        double get_Kd();
 
         // untuk set nilai Kp, Ki, dan Kd dalam PID (jika nilainya ingin diubah di serial monitor secara manual)
-        void set_PID(float kp, float ki, float kd);
+        void set_PID(double kp, double ki, double kd);
 
-        void set_tunings(float newKp, float newKi, float newKd);
-        void set_setpoint(float new_setpoint);
-        float compute(float input, float dt);
+        void set_tunings(double newKp, double newKi, double newKd);
+        void set_setpoint(double new_setpoint);
+        double compute(double input, double dt);
 
-        void selfTune(float error); // dipanggil di method compute
+        void selfTune(double error); // dipanggil di method compute
 };
 
 #endif
